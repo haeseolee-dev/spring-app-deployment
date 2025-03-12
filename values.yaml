@@ -1,0 +1,33 @@
+replicaCount: 2
+
+image:
+  repository: "{{ .Values.image.repository }}"
+  tag: "{{ .Values.image.tag }}"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - acr-secret
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+
+env:
+  BOOTSTRAP_SERVERS: "{{ .Values.env.BOOTSTRAP_SERVERS }}"
+  KAFKA_USERNAME: "{{ .Values.env.KAFKA_USERNAME }}"
+  KAFKA_PASSWORD: "{{ .Values.env.KAFKA_PASSWORD }}"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
