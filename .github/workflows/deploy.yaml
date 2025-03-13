@@ -14,3 +14,15 @@ jobs:
     steps:
       - name: Checkout Helm repository
         uses: actions/checkout@v3
+
+      - name: Update Image Tag in `kustomization.yaml`
+        run: |
+          sed -i "s|newTag: .*|newTag: ${{ github.event.inputs.imageTag }}|" kustomization.yaml
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add kustomization.yaml
+          git commit -m "Update image tag to ${{ github.event.inputs.imageTag }}"
+          git push origin main
