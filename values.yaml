@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: "{{ .Values.image.repository }}"
-  tag: "{{ .Values.image.tag }}"  # This should be set dynamically by ArgoCD
+  tag: "latest" ## default
   pullPolicy: Always
 
 imagePullSecrets:
