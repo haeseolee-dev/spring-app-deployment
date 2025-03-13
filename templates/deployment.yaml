@@ -14,7 +14,7 @@ spec:
         app: {{ .Release.Name }}
     spec:
       imagePullSecrets:
-        - name: acr-secret  # Make sure this secret exists
+        - name: acr-secret  
       containers:
         - name: {{ .Release.Name }}-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
