@@ -1,9 +1,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+helmCharts:
+  - name: kafka-producer
+    releaseName: kafka-producer
+    valuesFile: values.yaml
+
 resources:
-  - .
-  - templates/
+  - templates/deployment.yaml
+  - templates/service.yaml
+  - templates/hpa.yaml
+  - templates/ingress.yaml
+  - templates/serviceaccount.yaml
 
 images:
   - name: hsleeacr.azurecr.io/demo-kafka-producer
