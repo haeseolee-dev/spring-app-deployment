@@ -12,7 +12,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy using ArgoCD
-        run: |
-          argocd app set kafka-producer-app --helm-set image.tag=${{ github.event.inputs.imageTag }}
-          argocd app sync kafka-producer-app
+      - name: Checkout Helm repository
+        uses: actions/checkout@v3
