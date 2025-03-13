@@ -3,4 +3,4 @@ kind: Kustomization
 
 images:
   - name: hsleeacr.azurecr.io/demo-kafka-producer
-    newTag: latest
+    newTag: 20250313065132
