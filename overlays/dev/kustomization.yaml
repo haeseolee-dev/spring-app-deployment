@@ -6,4 +6,4 @@ resources:
 
 images:
   - name: hsleeacr.azurecr.io/demo-kafka-producer
-    newTag: latest  # This will be dynamically updated
+    newTag: ""
