@@ -6,4 +6,4 @@ resources:
 
 images:
   - name: hsleeacr.azurecr.io/demo-kafka-producer
-    newTag: ""
+    newTag: "20250313081507"
