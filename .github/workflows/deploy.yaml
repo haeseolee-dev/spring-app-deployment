@@ -12,20 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Update Helm values file
-        run: |
-          sed -i "s|tag:.*|tag: ${{ github.event.inputs.imageTag }}|" values.yaml
-
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git commit -am "Update image tag to ${{ github.event.inputs.imageTag }}"
-          git push origin main
       - name: Deploy using ArgoCD
-
         run: |
+          argocd app set kafka-producer-app --helm-set image.tag=${{ github.event.inputs.imageTag }}
           argocd app sync kafka-producer-app

@@ -13,19 +13,30 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      imagePullSecrets:
+        - name: acr-secret  # Make sure this secret exists
       containers:
-        - name: kafka-producer-app
+        - name: {{ .Release.Name }}-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.targetPort }}
           env:
             - name: BOOTSTRAP_SERVERS
-              value: "{{ .Values.env.BOOTSTRAP_SERVERS }}"
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-secrets
+                  key: BOOTSTRAP_SERVERS
             - name: KAFKA_USERNAME
-              value: "{{ .Values.env.KAFKA_USERNAME }}"
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-secrets
+                  key: KAFKA_USERNAME
             - name: KAFKA_PASSWORD
-              value: "{{ .Values.env.KAFKA_PASSWORD }}"
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-secrets
+                  key: KAFKA_PASSWORD
           resources:
             limits:
               cpu: {{ .Values.resources.limits.cpu }}

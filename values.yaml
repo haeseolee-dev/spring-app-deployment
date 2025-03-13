@@ -2,11 +2,11 @@ replicaCount: 2
 
 image:
   repository: "{{ .Values.image.repository }}"
-  tag: "{{ .Values.image.tag }}"
+  tag: "{{ .Values.image.tag }}"  # This should be set dynamically by ArgoCD
   pullPolicy: Always
 
 imagePullSecrets:
-  - acr-secret
+  - name: acr-secret
 
 service:
   type: NodePort
@@ -14,9 +14,9 @@ service:
   targetPort: 8080
 
 env:
-  BOOTSTRAP_SERVERS: "{{ .Values.env.BOOTSTRAP_SERVERS }}"
-  KAFKA_USERNAME: "{{ .Values.env.KAFKA_USERNAME }}"
-  KAFKA_PASSWORD: "{{ .Values.env.KAFKA_PASSWORD }}"
+  BOOTSTRAP_SERVERS: ""
+  KAFKA_USERNAME: ""
+  KAFKA_PASSWORD: ""
 
 resources:
   limits:
