@@ -34,3 +34,6 @@ affinity: {}
 
 serviceAccount:
   create: false
+
+autoscaling:
+  enabled: false
